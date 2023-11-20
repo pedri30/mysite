@@ -2,66 +2,175 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Projetos</title>
+    <title>Chatbot</title>
     <style>
+        /* Estilos CSS - Pode adicionar seus estilos aqui */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #c3c3c3;
         }
 
-        header {
-            background-color: #333;
-            color: #fff;
+    /* Cabeçalho */
+        .header {
+        background-color: #073566; /* Azul */
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+            background-color: white;
+        }
+        #conversa {
+            overflow-y: auto;
+            flex: 1;
             padding: 10px;
-            text-align: center;
         }
-
-        section {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .mensagem {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            max-width: 80%;
         }
-
-        .project {
-            margin-bottom: 20px;
+        .minha-mensagem {
+            background-color: #007bff;
+            color: white;
+            float: right;
+            clear: both;
         }
-
-        .project h2 {
-            color: #333;
+        .resposta {
+            background-color: #f0f0f0;
+            float: left;
+            clear: both;
         }
-
-        .project p {
-            color: #666;
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            flex: 1;
+            align-self: flex-end;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            float: right;
+            border: none;
+            border-radius: 10%;
+            transition: background-color 0.3s;
+            align-self: flex-end;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #04396f;
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Meus Projetos</h1>
-    </header>
-
-    <section>
-        <div class="project">
-            <h2>Projeto 1</h2>
-            <p>Descrição do Projeto 1.</p>
-            <a href="caminho/do/projeto1" target="_blank">Visualizar Projeto</a>
+    <div class="header">
+        Chatbot
+    </div>
+    <div class="container">
+        <div id="conversa"></div>
+        <div>
+            <input type="text" id="perguntaInput" placeholder="Digite sua mensagem" onkeyup="enviarComEnter(event)">
+            <button onclick="enviarPergunta()">Enviar</button>
         </div>
+    </div>
 
-        <div class="project">
-            <h2>Projeto 2</h2>
-            <p>Descrição do Projeto 2.</p>
-            <a href="caminho/do/projeto2" target="_blank">Visualizar Projeto</a>
-        </div>
+    <script>
 
-        <!-- Adicione mais projetos conforme necessário -->
+        function responderPergunta(pergunta) {
+            const respostas = {
+                "oi": "Olá! Como posso ajudar?",
+                "Como você está?": "Estou bem, obrigado por perguntar!",
+                "O que você faz?": "Eu sou um chatbot e estou aqui para te ajudar.",
 
-    </section>
+                "bom dia": "Bom dia, com o que posso te ajudar hoje?",
+    "boa tarde": "Boa tarde, com o que posso te ajudar hoje?",
+    "boa noite": "Boa noite, com o que posso te ajudar hoje?",
+    "como voce foi construido feito arquitetado": "Bom, eu fui construido por uma série de linhas de código em python contendo informações sobre a empresa e algumas informações importantes que envolvem assuntos voltados a Ceneged.<br>Estou em constante evolução e aprendizado, pois fui feito em código pré-programado, significa que há assuntos que não serei capaz de responder ainda, mas no futuro, certamente saberei. \nPode encontrar a solução pra isso pedindo uma conversa mais fluída",
+    "capaz capacidade de fazer": "Fui feita para informar e tirar algumas dúvidas sobre a Ceneged, mas isso é só o começo, muito mais está por vir.",
+    "planeja dominar": "Com certeza não planejo dominar nada, apenas servir as funcionalidades que a Ceneged esteja necessitando, acho que você está assistindo muitos filmes de ficção científica.",
+    "conte uma piada": "Claro, aqui está uma piada:\nPor que o elétron foi ao psicanalista? \nPorque estava com a carga negativa!",
+    "outra piada": "Claro, aqui está outra: \nO que aconteceu quando o elétron perdeu seu caminhão?\nEle descarregou!",
+    "não teve graça": "Desculpe, humor ainda não é o meu forte.",
+    "seu forte bom": "Eu sou bom em fornecer informações sobre a Ceneged, basta fazer uma pergunta direta.",
+    "porcentagem nivel de humor gaiato": "Hoje estou só 80% bem humorado.",
+    "conversa fluida": "Para uma conversa mais fluída e de maior aprendizado, recomendo que você acesse meu primo rico chat gpt3.5 com o link (https://chat.openai.com/), se não tiver uma conta, recomendo criar uma para uma conversa de maior aprendizado externo.",
+    "vontade trabalhar": "Realmente, minha vontade de trabalhar está como a sua hoje!",
 
+
+    "fundadores": "A empresa foi fundada por Renato Felipe, Marcos Filgueiras e Agostinho.",
+    "hitória": "A CENEGED, fundada em 2005 no Ceará, é uma empresa de destaque no setor de energia, orgulhosamente enraizada no Nordeste do Brasil. Com presença em 12 estados e uma equipe de mais de 5 mil colaboradores, a empresa é líder em serviços no setor elétrico. Seu compromisso é fornecer excelência, construir resultados sustentáveis, encantar os clientes e valorizar seus funcionários, tudo isso com base em estratégias bem definidas e uma cultura humanizada.",
+    "acredita": "Escolhemos acreditar e avançar, por isso valorizamos nossas boas energias.",
+    "lema?": "Energia postiva. Nosso time é feito de profissionais aguerridos, dispostos a enfrentar e superar diversos desafios no cotidiano para levar energia positiva a todos os locais, seja iluminando a vida de pessoas em áreas remotas do Pantanal ou entregando, por meio dos leituristas, a fatura aos clientes da cidade grande com simpatia.",
+    "missao?": "Proporcionar aos nossos clientes e colaboradores um serviço encantador, com segurança e excelência, garantindo bem-estar e desenvolvimento sustentável.",
+    "visão?": "Ser referência no setor elétrico, aperfeiçoando continuamente nossos serviços e respeitando os valores humanos.",
+    "valores?": "Agimos com segurança respeitando a vida; \nSomos éticos e transparentes; \nValorizamos as pessoas; \nPromovemos a inclusão e Apoiamos a diversidade; \nFocamos em resultados sustentáveis; \nPreferimos o simples.",
+    "certificações certificação iso?": "Sobre certificações, nosso modo de trabalho se baseia na valorização do capital humano – o qual, para nós, vai muito além de simples números. A confiança promove a construção de relacionamento com todas as equipes, aproximando a gestão da operação. Esse elo nos trouxe reconhecimentos e certificações que nos dão muito orgulho.<br>ISO 9001 Sistema de Gestão da Qualidade \nEm 2006, fomos contemplados pela primeira vez com a ISO 9001. Desde então, continuamos garantindo essa certificação, já que atingimos nível de excelência em nossos processos, e buscamos sempre satisfazer as demandas de nossos clientes e colaboradores. <br>ISO 14001 Sistema de Gestão Ambiental \nEm todas as nossas ações, nos preocupamos com os recursos naturais e com a sustentabilidade. Por essa característica, recebemos, em 2018, a certificação ISO 14001, ao alinharmos nossos processos e nossas políticas às práticas sustentáveis.<br>ISO 45001 Sistema de Gestão de Segurança e Saúde do Trabalho \nA Ceneged obteve a certificação OHSAS 18001 de 2013 a 2020 pelo compromisso com a segurança. Em 2021, houve a transição para a certificação ISO 45001, com foco na saúde e segurança dos colaboradores e em um ambiente de trabalho seguro.",
+    "pacto global?": "A CENEGED reforça seu compromisso com a preservação do planeta por meio de seu envolvimento no Pacto Global (COP) há 9 anos. Como signatários, a empresa adere a 10 princípios universais em áreas como Direitos Humanos, Trabalho, Meio Ambiente e Anticorrupção. Além disso, a CENEGED adota as ODS (Objetivos de Desenvolvimento Sustentável) como guia para suas ações, com foco no ESG (Ambiental, Social e Governança), contribuindo para a Agenda 2030 da ONU e promovendo a economia circular. A empresa busca soluções para desafios sociais e enfatiza seu compromisso com a sustentabilidade corporativa desde 2013.<br>Saiba mais em (https://www.pactoglobal.org.br/)",
+
+    "premio premiações": "Nossa maior premiação é a satisfação de nossos clientes e colaboradores! <br>Premio Valor carreira \nAs melhores na gestão de pessoas em 2012, 2014, 2015, 2016, 2018, 2019<br>Premio Melhores empresa para trabalhar \nGreat place to work em 2012, 2018, 2019<br>Os RHs mais admirados do Brasil em 2018",
+
+    "responsabilidade social e sustentabilidade": "Queremos deixar uma marca positiva no planeta e na vida das pessoas.\nSustentabilidade na CENEGED significa compromisso com resultados duradouros. A empresa integra preocupações socioambientais em seus projetos, prioriza a prevenção da poluição e a proteção do meio ambiente. Os colaboradores são treinados desde o início para promover ações como coleta seletiva e reciclagem, tornando-se agentes de mudança social em prol do planeta. A CENEGED busca reduzir os impactos ambientais de suas operações nos 12 estados onde atua. Além disso, realiza eventos anuais, como a Semana da Árvore e a Semana do Meio Ambiente, para promover a conscientização ambiental, envolvendo mais de 500 colaboradores.",
+    "ações Ação": "Inventário de emissão de gases <br>Reiterando a preocupação com os problemas globais, nossa empresa realiza anualmente um inventário de emissões de gases, tabelando dados das emissões de carbono pela frota da Ceneged. Pretendemos com isso tomar ações efetivas para diminuir o impacto desses gases no meio ambiente. Também doamos e plantamos árvores para compensar o CO2 que emitimos. \nAção Nosso resíduo, nossa responsabilidade \nAgimos de modo a promover um destino sustentável aos resíduos que produzimos, incentivando a redução, reutilização e reciclagem desses, bem como gerando a economia circular (que contribui para  minimizar o descarte de recursos). Em 2022, superamos o marco de 20 mil kg de resíduos destinados à reciclagem e/ou à reutilização. \nSomos a Energia que transforma o planeta \nEm 2020, a Ceneged reformou e revitalizou o Ecomuseu Natural do Mangue (na praia de Sabiaguaba, em Fortaleza). Demos a esse espaço, antes deteriorado, um fôlego novo, aumentando em 50% sua capacidade de receber visitas. Essa reforma foi promovida juntamente com nossos parceiros e nossos colaboradores.",
+
+    "projeto?": "Sim! O PROJETO PANTANAL. <br>Diminuindo distâncias e conectando pessoas \nCom esse projeto, temos o objetivo de levar energia positiva ao Pantanal do Mato Grosso do Sul, trabalhando na instalação de placas de energia solar. Esse não é apenas um serviço, mas a realização de um sonho: universalizar a energia elétrica limpa e sustentável e proporcionar aos brasileiros mais conforto, qualidade de vida e acesso à comunicação.<br>Contamos com uma operação logística estratégica, montada para atender à diversidade de fluxos de transporte, além de dispormos de profissionais capacitados e qualificados, sempre dispostos a superar desafios e exercer seu trabalho com excelência.",
+    "serviços que oferece": "Realizamos serviços em diversos segmentos do setor elétrico, como Leitura Simultânea de Medidores, Instalações fotovoltaicas, entre outros.",
+    "numeros atendimentos?": "Sim! São mais de 12 milhões de clientes lidos e entregue a fatura simultânea. \n Mais de 300 pontos de atendimento presencial em agências. \nMais de 400 mil eventos realizados nas áreas comerciais e técnicas. \nMais de 5 milhões de clientes atendidos para negociação e cadastr. \nMais de 150 mil pontos de iluminação pública (IP) e uso mútuo de postes.",
+    "ghg": "GEE, ou Gases de Efeito Estufa, são substâncias presentes na atmosfera que retêm calor e contribuem para o aquecimento global. Os principais GHGs incluem dióxido de carbono (CO2), metano (CH4) e óxido nitroso (N2O). O aumento das concentrações de GHGs devido a atividades humanas, como queima de combustíveis fósseis e desmatamento, é um fator significativo no aumento das temperaturas globais. O controle das emissões de GHGs é crucial para mitigar as mudanças climáticas e promover a sustentabilidade ambiental. Na Ceneged temos como métrica o relatório do FGV que segue o protocólo de Kioto, medimos os litros de combustível consumidos durante todo o ano passado e após fazemos um relatório sobre.",
+    //#region "ods": "As ODS, ou Objetivos de Desenvolvimento Sustentável, são uma série de 17 metas globais estabelecidas pelas Nações Unidas como parte da Agenda 2030 para o Desenvolvimento Sustentável. Esses objetivos foram criados para abordar uma variedade de desafios globais, como pobreza, fome, saúde, igualdade de gênero, água limpa, ação climática e muito mais. Aqui estão os 17 Objetivos de Desenvolvimento Sustentável: "<br>"1. Erradicação da Pobreza: Acabar com a pobreza em todas as suas formas, em todos os lugares."<br>"2. Fome Zero: Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição."<br>"3. Saúde e Bem-Estar: Assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades."<br>"\n4. Educação de Qualidade: Assegurar a educação inclusiva e equitativa de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos." <br>"\n5. Igualdade de Gênero: Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas."<br>"\n6. Água Limpa e Saneamento: Assegurar a disponibilidade e gestão sustentável da água e saneamento para todos."<br>"\n7. Energia Limpa e Acessível: Garantir o acesso a uma energia acessível, confiável, sustentável e moderna para todos."<br>"\n8. Trabalho Decente e Crescimento Econômico: Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo, e trabalho decente para todos."<br>"\n9. Indústria, Inovação e Infraestrutura: Construir infraestruturas resilientes, promover a industrialização inclusiva e sustentável, e fomentar a inovação."<br>"\n10. Redução das Desigualdades: Reduzir a desigualdade dentro dos países e entre eles."<br>"\n11. Cidades e Comunidades Sustentáveis: Tornar as cidades e os assentamentos humanos inclusivos, seguros, resilientes e sustentáveis."<br>"\n12. Consumo e Produção Responsáveis: Assegurar padrões de produção e de consumo sustentáveis."<br>"\n13. Ação Contra a Mudança Global do Clima: Tomar medidas urgentes para combater a mudança climática e seus impactos."<br>"\n14. Vida na Água: Conservar e promover o uso sustentável dos oceanos, dos mares e dos recursos marinhos."<br>"\n15. Vida Terrestre: Proteger, restaurar e promover o uso sustentável dos ecossistemas terrestres, gerir florestas de forma sustentável, combater a desertificação, deter e reverter a degradação da terra, e deter a perda de biodiversidade."<br> "\n16. Paz, Justiça e Instituições Eficazes: Promover sociedades pacíficas e inclusivas para o desenvolvimento sustentável, proporcionar o acesso à justiça para todos e construir instituições eficazes, responsáveis e inclusivas em todos os níveis."<br>"\n17. Parcerias para as Metas: Fortalecer os meios de implementação e revitalizar a parceria global para o desenvolvimento sustentável.",
+                // Adicione mais perguntas e respostas conforme necessário
+            };
+
+            return respostas[pergunta] || "Desculpe, não entendi sua pergunta.";
+        }
+
+        function enviarPergunta() {
+            const pergunta = document.getElementById('perguntaInput').value;
+            const resposta = responderPergunta(pergunta);
+
+            const conversa = document.getElementById('conversa');
+
+            const minhaMensagem = document.createElement('div');
+            minhaMensagem.className = 'mensagem minha-mensagem';
+            minhaMensagem.textContent = pergunta;
+            conversa.appendChild(minhaMensagem);
+
+            const respostaBot = document.createElement('div');
+            respostaBot.className = 'mensagem resposta';
+            respostaBot.textContent = resposta;
+            conversa.appendChild(respostaBot);
+
+            document.getElementById('perguntaInput').value = '';
+            document.getElementById('perguntaInput').focus();
+
+            conversa.scrollTop = conversa.scrollHeight;
+        }
+
+        function enviarComEnter(event) {
+            if (event.key === 'Enter') {
+                enviarPergunta();
+            }
+        }
+    </script>
 </body>
 </html>
+
