@@ -201,7 +201,6 @@
         <h1>Cadastro para Pesquisa e Desenvolvimento</h1>
         <form method="POST" name="contact" netlify>
             <input type="hidden" name="form-name" value="Cadastro para Pesquisa e Desenvolvimento">
-            <input type="hidden" name="_next" value="thanks.html">
             <div class="form-group">
                 <label for="name">Nome Completo</label>
                 <input type="text" id="name" name="name" required>
@@ -243,15 +242,6 @@ const popup = document.getElementById('popup');
 
 popup.addEventListener('click', () => {
     popup.style.display = 'none';
-});
-
-// Mostrar detalhes do projeto se a opção de enviar projeto for marcada
-submitProjectCheckbox.addEventListener('change', () => {
-    if (submitProjectCheckbox.checked) {
-        projectDetails.style.display = 'block';
-    } else {
-        projectDetails.style.display = 'none';
-    }
 });
 
 window.addEventListener('DOMContentLoaded', () => {
