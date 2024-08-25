@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/cerebro.png" type="image/png">
+    <title>Time P&D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Body and Background */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('img/robo (1).jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 2;
+        }
+
+        /* Container */
+        .container {
+            max-width: 480px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #c7c7c7;
+            z-index: 3;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .container.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-image {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Custom Checkbox Styles */
+        .form-group .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group .option-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: #c7c7c7;
+            transition: color 0.3s ease;
+        }
+
+        .form-group .option-group input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: transparent;
+            margin-right: 10px;
+            position: relative;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-group .option-group input[type="checkbox"]:checked {
+            background-color: #4caf50;
+            border-color: #4caf50;
+        }
+
+        .form-group .option-group input[type="checkbox"]:checked::after {
+            content: '\2713';
+            font-size: 16px;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .form-group .option-group input[type="checkbox"]:hover {
+            border-color: #4caf50;
+        }
+
+        /* Button */
+        button {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: translateY(-3px);
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .popup-content p {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <h2>Bem-vindo!</h2>
+            <p>Esta página permite que você envie uma solicitação para fazer parte do nosso time de pesquisa e desenvolvimento ou envie um projeto para desenvolvermos em conjunto. Você pode escolher uma ou ambas as opções. Clique fora desta caixa para fechar.</p>
+        </div>
+    </div>
+
+    <div class="background-overlay"></div>
+    <div class="background-image"></div> 
+    <div class="container">
+        <img src="img/pdibranco.png" alt="Logo" class="header-image"> 
+        <h1>Cadastro para Pesquisa e Desenvolvimento</h1>
+        <form id="registrationForm" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="Cadastro para Pesquisa e Desenvolvimento">
+            <input type="hidden" name="_next" value="https://seusite.netlify.app/thanks.html">
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Número da Matrícula</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label>Marque as opções que deseja:</label>
+                <div class="option-group">
+                    <label for="joinTeam">
+                        <input type="checkbox" id="joinTeam" name="options" value="joinTeam">
+                        Quero fazer parte do time
+                    </label>
+                    <label for="submitProject">
+                        <input type="checkbox" id="submitProject" name="options" value="submitProject">
+                        Quero enviar um projeto
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" id="project-details" style="display: none;">
+                <label for="project">Detalhes do Projeto (opcional)</label>
+                <textarea id="project" name="project" rows="4"></textarea>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="checked-options" style="display: none; margin-top: 20px; color: #fff;">
+            <h3>Você selecionou:</h3>
+            <ul id="selected-options"></ul>
+        </div>
+    </div>
+    <script>
+        const joinTeamCheckbox = document.getElementById('joinTeam');
+        const submitProjectCheckbox = document.getElementById('submitProject');
+        const projectDetails = document.getElementById('project-details');
+        const form = document.getElementById('registrationForm');
+        const popup = document.getElementById('popup');
+        const checkedOptionsDiv = document.getElementById('checked-options');
+        const selectedOptionsList = document.getElementById('selected-options');
+
+        popup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        // Mostrar detalhes do projeto se a opção de enviar projeto for marcada
+        submitProjectCheckbox.addEventListener('change', () => {
+            if (submitProjectCheckbox.checked) {
+                projectDetails.style.display = 'block';
+            } else {
+                projectDetails.style.display = 'none';
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Evitar o envio imediato do formulário para mostrar as opções selecionadas
+            const formData = new FormData(form);
+            const selectedOptions = [];
+
+            if (joinTeamCheckbox.checked) {
+                selectedOptions.push("Quero fazer parte do time");
+            }
+            if (submitProjectCheckbox.checked) {
+                selectedOptions.push("Quero enviar um projeto");
+            }
+
+            // Exibir as opções selecionadas
+            selectedOptionsList.innerHTML = selectedOptions.map(option => `<li>${option}</li>`).join('');
+            checkedOptionsDiv.style.display = 'block';
+
+            alert('Aguarde a confirmação para o envio, NÃO FECHE A PÁGINA!');
+
+            // Agora, enviar o formulário
+            setTimeout(() => {
+                form.submit();
+            }, 3000); // Submeter o formulário após 3 segundos
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.container').classList.add('loaded');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
