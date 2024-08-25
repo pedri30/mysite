@@ -199,7 +199,7 @@
     <div class="container">
         <img src="img/pdibranco.png" alt="Logo" class="header-image"> 
         <h1>Cadastro para Pesquisa e Desenvolvimento</h1>
-        <form id="registrationForm" method="POST" data-netlify="true">
+        <form method="POST" name="contact" netlify>
             <input type="hidden" name="form-name" value="Cadastro para Pesquisa e Desenvolvimento">
             <input type="hidden" name="_next" value="thanks.html">
             <div class="form-group">
@@ -238,7 +238,6 @@
         const joinTeamCheckbox = document.getElementById('joinTeam');
         const submitProjectCheckbox = document.getElementById('submitProject');
         const projectDetails = document.getElementById('project-details');
-        const form = document.getElementById('registrationForm');
         const popup = document.getElementById('popup');
 
         popup.addEventListener('click', () => {
@@ -252,12 +251,6 @@
             } else {
                 projectDetails.style.display = 'none';
             }
-        });
-
-        form.addEventListener('submit', (e) => {
-            const formData = new FormData(form);
-            console.log(Object.fromEntries(formData.entries()));
-            alert('Aguarde a confirmação para o envio, NÃO FECHE A PÁGINA!');
         });
 
         window.addEventListener('DOMContentLoaded', () => {
