@@ -199,9 +199,9 @@
     <div class="container">
         <img src="img/pdibranco.png" alt="Logo" class="header-image"> 
         <h1>Cadastro para Pesquisa e Desenvolvimento</h1>
-        <form name="contact" netlify>
+        <form id="registrationForm" method="POST" data-netlify="true">
             <input type="hidden" name="form-name" value="Cadastro para Pesquisa e Desenvolvimento">
-            <input type="hidden" name="_next" value="thanks.html">
+            <input type="hidden" name="_next" value="https://seusite.netlify.app/thanks.html">
             <div class="form-group">
                 <label for="name">Nome Completo</label>
                 <input type="text" id="name" name="name" required>
@@ -233,11 +233,6 @@
             </div>
             <button type="submit">Enviar</button>
         </form>
-
-        <div id="checked-options" style="display: none; margin-top: 20px; color: #fff;">
-            <h3>Você selecionou:</h3>
-            <ul id="selected-options"></ul>
-        </div>
     </div>
     <script>
         const joinTeamCheckbox = document.getElementById('joinTeam');
@@ -245,8 +240,6 @@
         const projectDetails = document.getElementById('project-details');
         const form = document.getElementById('registrationForm');
         const popup = document.getElementById('popup');
-        const checkedOptionsDiv = document.getElementById('checked-options');
-        const selectedOptionsList = document.getElementById('selected-options');
 
         popup.addEventListener('click', () => {
             popup.style.display = 'none';
@@ -262,27 +255,9 @@
         });
 
         form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evitar o envio imediato do formulário para mostrar as opções selecionadas
             const formData = new FormData(form);
-            const selectedOptions = [];
-
-            if (joinTeamCheckbox.checked) {
-                selectedOptions.push("Quero fazer parte do time");
-            }
-            if (submitProjectCheckbox.checked) {
-                selectedOptions.push("Quero enviar um projeto");
-            }
-
-            // Exibir as opções selecionadas
-            selectedOptionsList.innerHTML = selectedOptions.map(option => `<li>${option}</li>`).join('');
-            checkedOptionsDiv.style.display = 'block';
-
+            console.log(Object.fromEntries(formData.entries()));
             alert('Aguarde a confirmação para o envio, NÃO FECHE A PÁGINA!');
-
-            // Agora, enviar o formulário
-            setTimeout(() => {
-                form.submit();
-            }, 3000); // Submeter o formulário após 3 segundos
         });
 
         window.addEventListener('DOMContentLoaded', () => {
