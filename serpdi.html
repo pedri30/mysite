@@ -234,6 +234,31 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
- 
+<script>
+const joinTeamCheckbox = document.getElementById('joinTeam');
+const submitProjectCheckbox = document.getElementById('submitProject');
+const projectDetails = document.getElementById('project-details');
+const form = document.querySelector('form[name="contact"]');
+const popup = document.getElementById('popup');
+
+popup.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+// Mostrar detalhes do projeto se a opção de enviar projeto for marcada
+submitProjectCheckbox.addEventListener('change', () => {
+    if (submitProjectCheckbox.checked) {
+        projectDetails.style.display = 'block';
+    } else {
+        projectDetails.style.display = 'none';
+    }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.querySelector('.container').classList.add('loaded');
+    }, 100);
+});
+</script>
 </body>
 </html>
